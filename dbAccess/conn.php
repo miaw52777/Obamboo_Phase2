@@ -8,7 +8,7 @@ if(!function_exists('json_encode'))
 	{
 		$json = new Services_JSON();
 		return $json->encode($val);
-	}
+	} 
 
 	function json_decode($val)
 	{
