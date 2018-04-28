@@ -680,7 +680,7 @@ function AddEnquiry(cookie_str, prod_id)
 
 									
 
-									echo '<option value="'.$filepath.'" '.$is_select.'>'.$category.'</option>'."\n";
+									if($filepath != "") {echo '<option value="'.$filepath.'" '.$is_select.'>'.$category.'</option>'."\n";}
 
 								}
 
@@ -732,7 +732,7 @@ function AddEnquiry(cookie_str, prod_id)
 
 									
 
-									echo '<option value="'.$filepath.'" '.$is_select.'>'.$category.'</option>';
+									if($filepath != "") {echo '<option value="'.$filepath.'" '.$is_select.'>'.$category.'</option>';}
 
 								}
 
