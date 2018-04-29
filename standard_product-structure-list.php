@@ -1,7 +1,7 @@
 ﻿<?
 include_once("./dbAccess/conn.php");	
 include_once("./frontendFunc.php");
-include('./secure.php');
+include('./secure.php');include('./frontEnd_CommonHeaders/en_map.php');
 
 // check login
 if(!is_login())
@@ -13,7 +13,7 @@ if(!is_login())
 $level = $_GET['level'];
 $id = $_GET['id'];
 $ProductRoot = $_GET['PRODUCT_ROOT'];
-
+$name_lang = $_GET['lang'];
 
 /*
 echo $level.'<br>';
@@ -23,7 +23,7 @@ echo $id.'<br>';*/
 if((!isset($_GET['level']))|| ($level==1))
 {
     $imageHtml = printImage(1,'','');
-	$imageFrameTitle = 'Full Show Of Our 3D Assets';
+	$imageFrameTitle = getMapLanguage($name_lang, "Full Show Of Our 3D Assets");
 	
 } 
 else 
@@ -81,77 +81,16 @@ else
 </head>
 <body data-open="click" data-menu="vertical-content-menu" data-col="2-columns" class="vertical-layout vertical-content-menu 2-columns  fixed-navbar">
 <form action="" method="get">
-  <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center">
-    <div class="navbar-wrapper">
-      <div class="navbar-header">
-        <ul class="nav navbar-nav">
-          <li class="nav-item mobile-menu hidden-md-up float-xs-left"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="icon-menu5 font-large-1"></i></a></li>
-          <li class="nav-item"><a href="standard_product-structure-list.php" class="navbar-brand nav-link"><img alt="3DHost" src="app-assets/images/logo/3dhost-logo-light.png" class="brand-logo"></a></li>
-          <li class="nav-item hidden-md-up float-xs-right"><a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container"><i class="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i></a></li>
-        </ul>
-      </div>
-      <div class="navbar-container content container-fluid">
-        <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
-          <ul class="nav navbar-nav">
-            <li class="nav-item hidden-sm-down"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="icon-menu5"></i></a></li>
-            <li class="nav-item hidden-sm-down"><a href="#" class="nav-link nav-link-expand"><i class="ficon icon-expand2"></i></a></li>
-          </ul>
-          <ul class="nav navbar-nav float-xs-right">
-            <li class="dropdown dropdown-language nav-item"><a id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle nav-link"><i class="flag-icon flag-icon-gb"></i><span class="selected-language">English</span></a>
-              <div aria-labelledby="dropdown-flag" class="dropdown-menu"> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-gb"></i> English</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-cn"></i> China</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-tw"></i> Taiwan</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-fr"></i> French</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-ru"></i> Russia</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-es"></i> Spain</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-de"></i> German</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-jp"></i> Japan</a> <a href="#" class="dropdown-item"><i class="flag-icon flag-icon-ae"></i> العَرَبِيَّة</a> </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
+    <? require_once('./frontEnd_CommonHeaders/header.php');?>  
   <div class="app-content content container-fluid">
     <div class="content-wrapper">
-      <div class="main-menu menu-static menu-light menu-accordion menu-shadow">
-        <div class="main-menu-content">
-          <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">		     
-            <li class="nav-item"><a href="standard_product-structure-list.php"><i class="icon-home3"></i><span data-i18n="nav.category.support" class="menu-title">Home</span></a> </li>
-          <li class="nav-item"><a href="standard_product-structure-list.php"><i class="icon-ios-folder"></i><span data-i18n="nav.dash.main" class="menu-title">Products</span> 
-              <!--<span class="tag tag tag-primary tag-pill float-xs-right mr-2">5</span>--> 
-              </a>
-              <? 
-			 
-				// 印左邊選單
-  			    $rule = get_Products_Category_Select_Rule('PARENT_ID','NULL');	
-				$rule = $rule.' '.get_Products_Category_Select_Rule('VALID','T');	
-				$queryResult = get_Products_Category_List($rule);
-				
-				echo '<ul class="menu-content">';
-				while($temp = mysql_fetch_assoc($queryResult))
-				{	
-					// root : leve1 1					
-					if($id == $temp['id'])
-					{
-					  $strActive = 'active';
-					}			  
-					else 
-					{
-					   $strActive = '';
-					}
-					echo '<li class="'.$strActive.'"><a href="standard_product-structure-list.php" class="menu-item">'.stringWrap($temp['Product_Name']).'</a>';
-					$level_cnt = 1;					
-					
-			 		category_tree($temp['id'], $level, $level_cnt,false,$prod_id,$strActive,$id);		
-			     } 				 
-				 echo '</li></ul>';			
-			?>
-            </li>						 <li class="nav-item"><a href="standard_form.php"><i class="icon-mail6"></i><span class="menu-title">Enquiry</span></a> </li>          <li class="nav-item"><a href="standard_about.php"><i class="icon-office"></i><span class="menu-title">About</span></a> </li>          <li class="nav-item"><a href="standard_exhibition.php"><i class="icon-android-globe"></i><span class="menu-title">Exhibition</span></a> </li>          <li class="nav-item"><a href="standard_video.php"><i class="icon-android-film"></i><span class="menu-title">Video</span></a> </li>
-            <li class=" nav-item"><a href="http://www.obamboo.com/3DHost/contact.html"><i class="icon-support"></i><span data-i18n="nav.category.support" class="menu-title">Support</span></a> </li>
-          </ul>
-        </div>
-      </div>
+     <? require_once('./frontEnd_CommonHeaders/LeftMenu.php');?>
       <div class="content-body">
         <div class="content-header row">
           <div class="content-header-left breadcrumbs-left breadcrumbs-top col-md-12 col-xs-12">
             <div class="breadcrumb-wrapper col-xs-12">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="standard_product-structure-list.php"><i class="icon-home3"></i> Home</a> </li>
-                <li class="breadcrumb-item"><a href="standard_product-structure-list.php"><i class="icon-ios-folder"></i> Products</a> </li>
+                <? require_once('./frontEnd_CommonHeaders/LinkHeader.php');				   echo getLinkTitle($name_lang,"Home");				   echo getLinkTitle($name_lang,"Products");				?>
                 <? 
 			  	$itemTitleLink = printLinkTitle($id, '',$level);
 			  	echo $itemTitleLink; 
@@ -180,7 +119,7 @@ else
                   <div class="row">
                     <?
 			  		echo $imageHtml;
-			  ?>
+					?>
                   </div>
                 </div>
               </div>

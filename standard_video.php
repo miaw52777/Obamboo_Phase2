@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?include_once("./dbAccess/conn.php");	include_once("./frontendFunc.php");include_once("./dbAccess/ProductCategoryFunc.php");include_once("./dbAccess/ProductFunc.php");include('./secure.php');include('./frontEnd_CommonHeaders/en_map.php'); if(!is_login()){	header("Location: login.php");	exit;}  $name_lang = 'Taiwan'; ?><!DOCTYPE html>
 <html lang="en" data-textdirection="ltr" class="loading">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
